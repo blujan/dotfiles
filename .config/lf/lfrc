@@ -1,0 +1,6 @@
+# Basics
+set mouse
+set icons
+set period 1
+set previewer '~/.config/lf/scope'
+set shell 'zsh'

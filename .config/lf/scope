@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+text() {
+  file_ext=$(printf '%s' "$1" | awk -F . '{if (NF>1) {print $NF}}')
+  case "$file_ext" in
+    md ) glow -w "$(($4-2))" -s dark "$1" ;;
+    docx ) pandoc -s -t markdown -- "$1"  | glow -w "$(($4-2))" -s dark - ;;
+	  * ) bat --line-range=:500 -p --terminal-width "$(($4-2))" -f "$1" ;;
+  esac
+}
+
+
+# File preview handler for lf.
+case "$(file --dereference --brief --mime-type -- "$1")" in
+	text/troff) man ./ "$1" | col -b ;;
+	text/* | */xml | application/json | *wordprocessingml.document ) text "$1" "$2" "$3" "$4" ;;
+  application/zip) zipinfo "$1" ;;
+  image/*) ascii-image-converter -C -b --dither --color-bg -W "$(($4-2))" "$1" ;;
+  video/* ) ffmpegthumbnailer -i "$1" -c png -o - | ascii-image-converter - -C -b --dither --color-bg -W "$(($4-2))";;
+  */pdf ) node ~/.local/bin/node_modules/@opendocsg/pdf2md/lib/pdf2md-cli.js --inputFile "$1" | glow -w "$(($4-2))" -s dark - ;;
+esac
+exit 1

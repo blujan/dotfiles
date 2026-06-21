@@ -1,0 +1,54 @@
+*
+# Using !*/ doesn't mix well with my setup. So, I have to manually add each subdir
+
+# Neovim
+!.config
+!.config/nvim
+!.config/nvim/lua
+!.config/nvim/lua/**
+!.config/nvim/.luarc.json
+!.config/nvim/.neoconf.json
+!.config/nvim/.stylua.toml
+!.config/nvim/init.lua
+!.config/nvim/neovim.yml
+!.config/nvim/README.md
+!.config/nvim/selene.toml
+
+# Vim
+!.vimrc
+
+# Docs
+!installed_utils
+!installed_utils/**
+
+# Git
+!.gitconfig
+!.gitignore
+!.gitmodules
+
+# Zsh
+!.zshrc
+!.p10k.zsh
+!.zshenv
+!.zlogin
+!.zprofile
+!.oh-my-zsh
+!.oh-my-zsh-custom
+!.oh-my-zsh-custom/plugins
+!.oh-my-zsh-custom/plugins/zsh-autosuggestions
+!.oh-my-zsh-custom/themes
+!.oh-my-zsh-custom/themes/powerlevel10k
+
+
+# Ghostty
+!Library
+!Library/Application Support
+!Library/Application Support/com.mitchellh.ghostty
+!Library/Application Support/com.mitchellh.ghostty/config
+!.config/ghostty
+!.config/ghostty/themes
+!.config/ghostty/themes/**
+
+# lf
+!.config/lf
+!.config/lf/**
