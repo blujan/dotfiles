@@ -1,5 +1,0 @@
-DEFAULT_HISTORY_DISPLAY=45
-alias history="fc -l -$DEFAULT_HISTORY_DISPLAY"
-# alias ls='ls -G'
-# alias ll='ls -l'
-# alias grep='grep -n --color=auto'
