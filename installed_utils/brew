@@ -9,3 +9,5 @@ ffmpeg
 ffmpegthumbnailer
 lf
 ascii-image-converter
+proselint
+prettier
