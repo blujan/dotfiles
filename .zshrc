@@ -135,3 +135,6 @@ export PATH=$HOME/development/flutter/bin:$PATH
 # Following line was automatically added by arttime installer
 export MANPATH=/Users/raven/.local/share/man:$MANPATH
 
+# Additions
+source $HOME/.zshrc.prek
+
