@@ -122,6 +122,7 @@ alias lsa='ls -la'
 alias vi="nvim"
 alias vim="nvim"
 alias kanban="pushd -q ~/Sync/Desk/ && vi ~/Sync/Desk/Main\ Kanban.md && popd -q"
+alias visidata="TERM='xterm-256color' visidata"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
