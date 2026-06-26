@@ -1,3 +1,4 @@
 {
-  "format.enable": false
+  "format.enable": false,
+  "workspace.ignoreDir": [".vscode", "spaceship.lua"]
 }
