@@ -25,9 +25,8 @@ return {
     lazy = false,
     dependencies = { "amansingh-afk/milli.nvim" },
     opts = function()
-      local splash = require("milli").load({ splash = "drift" })
-      local source_opts =
-        { hidden = true, ignored = true, exclude = { ".git", ".DS_Store" } }
+      local splash = require("milli").load { splash = "drift" }
+      local source_opts = { hidden = true, ignored = true, exclude = { ".git", ".DS_Store" } }
       return {
         dashboard = {
           enabled = true,
@@ -36,12 +35,12 @@ return {
           },
           sections = {
             { section = "header", padding = 1 },
-            { section = "keys",   gap = 1, padding = 1 },
+            { section = "keys", gap = 1, padding = 1 },
             { section = "startup" },
           },
         },
         indent = {
-          enabled = true
+          enabled = true,
         },
         picker = {
           ignored = true,
@@ -57,21 +56,19 @@ return {
         image = {
           resolve = function(path, src)
             local api = require "obsidian.api"
-            if api.path_is_note(path) then
-              return api.resolve_attachment_path(src)
-            end
+            if api.path_is_note(path) then return api.resolve_attachment_path(src) end
           end,
         },
       }
     end,
     config = function(_, opts)
       require("snacks").setup(opts)
-      require("milli").snacks({ splash = "drift", loop = true })
+      require("milli").snacks { splash = "drift", loop = true }
     end,
   },
 
   -- You can disable default plugins as follows:
-  { "max397574/better-escape.nvim", enabled = false },
+  { "max397574/better-escape.nvim", enabled = true },
 
   -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
   {
@@ -138,4 +135,4 @@ return {
   --   "esmuellert/codediff.nvim",
   --   cmd = "CodeDiff",
   -- },
-  }
+}

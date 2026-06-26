@@ -61,3 +61,15 @@
 !bin/
 !bin/setup_symlinks.zsh
 
+# tmux
+!.tmux.conf
+!.tmux
+!.tmux/plugins
+!.tmux/plugins/tpm
+!.config/sesh/
+!.config/sesh/sesh.toml
+
+# atuin
+!.config/atuin
+!.config/atuin/config.toml
+!.zshrc.atuin
