@@ -7,7 +7,7 @@ return {
     --   "MunifTanjim/nui.nvim",
     --   -- "nvim-tree/nvim-web-devicons", -- optional, but recommended
     -- },
-    -- lazy = false, -- neo-tree will lazily load itself
+    lazy = false, -- neo-tree will lazily load itself
     opts = {
       enable_git_status = false,
       filesystem = {
@@ -29,6 +29,12 @@ return {
       name = {
         use_filtered_colors = false,
         use_git_status_colors = false,
+      },
+      window = {
+        mappings = {
+          ["<cr>"] = "open_tab_drop",
+          ["Z"] = "expand_all_nodes",
+        },
       },
     },
   },
