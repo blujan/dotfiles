@@ -25,7 +25,7 @@ return {
     lazy = false,
     dependencies = { "amansingh-afk/milli.nvim" },
     opts = function()
-      local splash = require("milli").load { splash = "drift" }
+      local splash = require("milli").load { module = "splashes.drift" }
       local source_opts = { hidden = true, ignored = true, exclude = { ".git", ".DS_Store" } }
       return {
         dashboard = {
@@ -63,7 +63,7 @@ return {
     end,
     config = function(_, opts)
       require("snacks").setup(opts)
-      require("milli").snacks { splash = "drift", loop = true }
+      require("milli").snacks { module = "splashes.drift", loop = true }
     end,
   },
 

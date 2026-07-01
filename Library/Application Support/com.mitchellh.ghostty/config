@@ -63,7 +63,7 @@ confirm-close-surface = false
 
 # Shell Integration
 shell-integration = zsh
-shell-integration-features = sudo,no-title,no-cursor,ssh-env
+shell-integration-features = sudo,no-title,cursor,ssh-env
 macos-option-as-alt = true
 
 
