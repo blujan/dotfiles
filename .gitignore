@@ -61,7 +61,7 @@
 
 # bin
 !bin/
-!bin/setup_symlinks.zsh
+!bin/prettier-pre-commit
 
 # tmux
 !.tmux.conf

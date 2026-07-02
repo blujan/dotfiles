@@ -3,7 +3,7 @@
 	st = status
 	br = branch
 	rb = "!f() {git checkout -b $1 && git push -u origin $1;}; f"
-	spp = "!f() {git stash && git pull && git stash pop; }; f"
+	spp = "!git stash && git pull && git stash pop"
 [color]
 	ui = auto
 [log]
@@ -20,3 +20,5 @@
 [user]
 	email = 7959971+blujan@users.noreply.github.com
 	name = Brennan Lujan
+[credential]
+	helper = osxkeychain
