@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -15,7 +15,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -60,7 +59,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -71,19 +70,26 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=~/.oh-my-zsh-custom
+
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' autoload yes
+
+setopt extended_glob
 
 # Plugins
 # Standard plugins: $ZSH/plugins/
 # Custom plugins: $ZSH_CUSTOM/plugins/
 plugins=(
-    aliases
-    git
-    macos
-    python
-    rust
-    ssh
-    zsh-autosuggestions
+	# aliases
+	git
+	# nvm
+	extract
+	macos
+	python
+	rust
+	ssh
+	zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -100,42 +106,63 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
- # if [[ -n $SSH_CONNECTION ]]; then
- #   export EDITOR='vim'
- # else
- #   export EDITOR='nvim'
- # fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # Aliases (overrides oh-my-zsh)
-alias ls="eza --icons --group-directories-first --smart-group" 
+alias ls="eza --icons --group-directories-first --smart-group"
 alias l='ls -la'
 alias la='ls -lA'
 alias ll='ls -l'
 alias lsa='ls -la'
 alias vi="nvim"
 alias vim="nvim"
-alias kanban="pushd -q ~/Sync/Desk/ && vi ~/Sync/Desk/Main\ Kanban.md && popd -q"
+alias kanban="pushd -q ~/Sync/Desk/ && vi ~/Sync/pad/Desk/Main\ Kanban.md && popd -q"
 alias visidata="TERM='xterm-256color' visidata"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
 # Adds Flutter to path
-export PATH=$HOME/development/flutter/bin:$PATH
+# export PATH=$HOME/development/flutter/bin:$PATH
 
 # Following line was automatically added by arttime installer
 export MANPATH=/Users/raven/.local/share/man:$MANPATH
 
 # Additions
-source $HOME/.zshrc.prek
+# source $HOME/.zshrc.prek
+# source ~/.zshrc.atuin
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
+
+function sesh-sessions() {
+	{
+		exec </dev/tty
+		exec <&1
+		local session
+		if [[ -v TMUX ]]; then
+			session=$(sesh list -i -t -c | sk --tmux --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ' --ansi | colrm 1 2)
+		else
+			session=$(sesh list -i -t -c | sk --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ' --ansi | colrm 1 2)
+			zle reset-prompt >/dev/null 2>&1 || true
+		fi
+		[[ -z "$session" ]] && return
+		sesh connect "$session"
+	}
+}
+
+zle -N sesh-sessions
+bindkey -M emacs '\es' sesh-sessions
+bindkey -M vicmd '\es' sesh-sessions
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+bindkey -M viins '\es' sesh-sessions
